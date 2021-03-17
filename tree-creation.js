@@ -1,22 +1,25 @@
-let treeBuilder = (nodeArray) => {
+let pyramidValidator = (nodes) => {
 
-  if (!nodeArray.length) {
-    return 'No Values Given!'
+  let result = false;
+
+  if (!nodes) {
+    return result;
   }
 
-  let levels = [];
   let level = 1;
   let levelVals = 0;
 
-  for (let index = 0; index < nodeArray.length; index ++) {
-    if (levelVals === 0) {
-      levels.push([]);
-    }
-    levels[level - 1].push(nodeArray[index]);
-    levelVals ++;
+  for (let index = 0; index < nodes; index ++) {
     if (levelVals === level) {
       level ++;
       levelVals = 0;
     }
+    levelVals ++;
+  }
+  if (levelVals === level) {
+    result = true;
+    return result;
+  } else {
+    return result;
   }
 }
