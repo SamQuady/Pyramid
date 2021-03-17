@@ -74,3 +74,25 @@ let treeBuilder = (input) => {
   }
   return root;
 }
+
+let pathFinder = (pyramid, target) => {
+
+  let result = '';
+
+  let helper = (node, route, product) => {
+    product = product * node.val;
+    if (product > target) {return;}
+    if (product === target && !node.left && !node.right) {
+      result = route;
+      return result;
+    }
+    if (product <= target && node.left && node.right) {
+      helper(node.left, route + 'L', product);
+      helper(node.right, route + 'R', product);
+    }
+  }
+
+  helper(pyramid, '', 1);
+
+  return result;
+}
