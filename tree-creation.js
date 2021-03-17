@@ -48,3 +48,29 @@ let nodeOrganizer = (nodeArray) => {
 
   return levels;
 }
+
+
+let treeBuilder = (input) => {
+
+  if (pyramidValidator(input.length)) {
+    let nodes = nodeOrganizer(input);
+  } else {
+    return 'Need More Nodes!'
+  }
+
+  let root = nodes[0][0];
+
+  for (let index = 1; index < nodes.length; index ++) {
+    let pointerIndex = 0;
+    let level = nodes[index];
+    let levelPointer = 0;
+    while (levelPointer < level.length - 1) {
+      let pointer = nodes[index - 1][pointerIndex];
+      pointer.left = level[levelPointer];
+      pointer.right = level[levelPointer + 1];
+      pointerIndex ++;
+      levelPointer ++;
+    }
+  }
+  return root;
+}
