@@ -96,3 +96,10 @@ let pathFinder = (pyramid, target) => {
 
   return result;
 }
+
+module.exports = {
+  pyramidValidator,
+  nodeOrganizer,
+  treeBuilder,
+  pathFinder
+}
