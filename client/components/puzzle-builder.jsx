@@ -10,10 +10,18 @@ class PuzzleBuilder extends React.Component {
     };
     this.addARow = this.addARow.bind(this);
     this.subtractARow = this.subtractARow.bind(this);
+    this.submitPuzzle = this.submitPuzzle.bind(this);
   }
 
   subtractARow() {
-    this.setState({entry: false, subtractARow: true});
+    let newLevelsInt = this.state.levelsInt - 1;
+    if (newLevelsInt < 1) {
+      return alert('We Need at Least 1 Row!');
+    }
+    let newLevels = this.state.levels;
+    newLevels.pop();
+    console.log(newLevels, newLevelsInt);
+    this.setState({levels: newLevels, levelsInt: newLevelsInt});
   }
 
   addARow() {
@@ -25,12 +33,15 @@ class PuzzleBuilder extends React.Component {
     this.setState({levels: newLevels, levelsInt: newLevelsInt});
   }
 
+  submitPuzzle() {
+  }
+
   render() {
     return (
       <div>
         <div>{this.state.levels.map((level, index) => <PuzzleRow key={index} build={true} spaces={level} />)}</div>
         <div>
-          <button onClick={this.addARow}>Add a Row!</button><button>Subtract a Row!</button><button>Submit!</button>
+          <button onClick={this.addARow}>Add a Row!</button><button onClick={this.subtractARow}>Subtract a Row!</button><button>Submit!</button>
         </div>
       </div>
       )

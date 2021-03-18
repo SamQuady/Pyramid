@@ -2,26 +2,22 @@ import React from 'react';
 import PuzzleInputNode from './puzzle-input-node.jsx';
 
 class PuzzleRow extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-    this.getAPuzzle = this.getAPuzzle.bind(this);
-    this.createAPuzzle = this.createAPuzzle.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {row: this.props.spaces};
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  createAPuzzle() {
-    this.setState({entry: false, createAPuzzle: true});
-  }
-
-  getAPuzzle() {
-    this.setState({entry: false, getAPuzzle: true});
+  handleChange(index) {
+    let row = this.state.row;
+    row[index] = event.target.value;
+    this.setState({row: row});
   }
 
   render() {
-    console.log(this.props.spaces)
     if (this.props.build) {
       return (
-        <div>{this.props.spaces.map((space, index) => <PuzzleInputNode key={index}/>)}</div>
+        <div>{this.props.spaces.map((space, index) => <PuzzleInputNode onChange={this.handleChange} index={index} key={index}/>)}</div>
       )
     }
   }
