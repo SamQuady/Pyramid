@@ -1,4 +1,5 @@
 import React from 'react';
+import PuzzleBuilder from './puzzle-builder.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -39,6 +40,9 @@ class App extends React.Component {
       <div>
         <div>
           <h2>Puzzle Builder</h2>
+        </div>
+        <div>
+          <PuzzleBuilder />
         </div>
       </div>
       )
