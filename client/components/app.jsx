@@ -1,6 +1,7 @@
 import React from 'react';
 import PuzzleBuilder from './puzzle-builder.jsx';
 import PuzzleGame from './puzzle-game.jsx';
+import Helpers from './helpers/tree-helpers.js';
 
 class App extends React.Component {
   constructor() {
@@ -10,10 +11,15 @@ class App extends React.Component {
       createAPuzzle: false,
       playGame: false,
       pyramid: null,
-      goal: null
+      goal: null,
+      defaultPuzzles: [
+        {nodes: [[1], [2, 3]], goal: 2}, {nodes: [[1], [2, 3]], goal: 3}, {nodes: [[1], [2, 3], [4, 5, 6]], goal: 8}, {nodes: [[1], [2, 3], [4, 5, 6]], goal: 10}, {nodes: [[1], [2, 3], [4, 5, 6]], goal: 15}, {nodes: [[1], [2, 3], [4, 5, 6]], goal: 18}, {nodes: [[1], [5, 9], [2, 3, 7], [9, 0, 4, 1]], goal: 0}, {nodes: [[2],[4,3],[3,2,6],[2,9,5,2],[10,5,2,15,5]], goal: 720}, {nodes: [[1], [2, 4], [6, 8, 10]], goal: 40}, {nodes: [[1], [2, 4], [6, 8, 10]], goal: 32}, {nodes: [[1], [2, 4], [6, 8, 10]], goal: 12}, {nodes: [[1], [2, 4], [6, 8, 10]], goal: 16}, {nodes: [[1], [3, 7], [9, 8, 9]], goal: 27}, {nodes: [[1], [3, 7], [9, 8, 9]], goal: 63}, {nodes: [[1], [-2, -3], [4, 5, 6]], goal: -8},
+      ]
     };
     this.createAPuzzle = this.createAPuzzle.bind(this);
     this.playGame = this.playGame.bind(this);
+    this.getAPuzzle = this.getAPuzzle.bind(this);
+    this.randomNumberGenerator = this.randomNumberGenerator.bind(this);
   }
 
   createAPuzzle() {
@@ -25,6 +31,18 @@ class App extends React.Component {
     this.setState({createAPuzzle: false, playGame: true, pyramid: pyramid, goal: goal});
   }
 
+  randomNumberGenerator(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  getAPuzzle() {
+    let gameIndex = this.randomNumberGenerator(0, this.state.defaultPuzzles.length);
+    let game = this.state.defaultPuzzles[gameIndex];
+    this.setState({entry: false, playGame: true, pyramid: game.nodes, goal: game.goal});
+  }
+
   render() {
     if (this.state.entry) {
       return (
@@ -34,7 +52,7 @@ class App extends React.Component {
             <h3>Wanna Play?</h3>
           </div>
           <div>
-            <button onClick={this.createAPuzzle}>Build Your Own Puzzle!</button><button>Let Us Choose One For You!</button>
+            <button onClick={this.createAPuzzle}>Build Your Own Puzzle!</button><button onClick={this.getAPuzzle}>Let Us Choose One For You!</button>
           </div>
         </div>
         );
