@@ -18,7 +18,9 @@ class PuzzleInputNode extends React.Component {
 
   render() {
     return (
-    <input type="text"></input>
+      <span>
+         <input type="text"></input>
+      </span>
     );
   }
 }
