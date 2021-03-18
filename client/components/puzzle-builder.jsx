@@ -11,6 +11,7 @@ class PuzzleBuilder extends React.Component {
     this.addARow = this.addARow.bind(this);
     this.subtractARow = this.subtractARow.bind(this);
     this.submitPuzzle = this.submitPuzzle.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   subtractARow() {
@@ -36,12 +37,18 @@ class PuzzleBuilder extends React.Component {
   submitPuzzle() {
   }
 
+  onChange(index, row) {
+    let puzzle = this.state.levels;
+    puzzle[index] = row;
+    this.setState({levels: puzzle});
+  }
+
   render() {
     return (
       <div>
-        <div>{this.state.levels.map((level, index) => <PuzzleRow key={index} build={true} spaces={level} />)}</div>
+        <div>{this.state.levels.map((level, index) => <PuzzleRow onChange={this.onChange} index={index} key={index} build={true} spaces={level} />)}</div>
         <div>
-          <button onClick={this.addARow}>Add a Row!</button><button onClick={this.subtractARow}>Subtract a Row!</button><button>Submit!</button>
+          <button onClick={this.addARow}>Add a Row!</button><button onClick={this.subtractARow}>Subtract a Row!</button><button onClick={this.submitPuzzle}>Submit!</button>
         </div>
       </div>
       )

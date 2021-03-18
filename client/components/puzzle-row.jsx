@@ -10,8 +10,9 @@ class PuzzleRow extends React.Component {
 
   handleChange(index) {
     let row = this.state.row;
-    row[index] = event.target.value;
+    row[index] = Number(event.target.value);
     this.setState({row: row});
+    this.props.onChange(this.props.index, this.state.row);
   }
 
   render() {
