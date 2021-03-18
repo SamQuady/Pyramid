@@ -1,5 +1,6 @@
 import React from 'react';
 import PuzzleRow from './puzzle-row.jsx';
+import Helpers from './helpers/tree-helpers.js';
 
 class PuzzleBuilder extends React.Component {
   constructor() {
@@ -50,6 +51,8 @@ class PuzzleBuilder extends React.Component {
     return (
       <div>
         <div>{this.state.levels.map((level, index) => <PuzzleRow onChange={this.onChange} index={index} key={index} build={true} spaces={level} />)}</div>
+        <div>Goal</div>
+        <input type="number"></input>
         <div>
           <button onClick={this.addARow}>Add a Row!</button><button onClick={this.subtractARow}>Subtract a Row!</button><button onClick={this.submitPuzzle}>Submit!</button>
         </div>
