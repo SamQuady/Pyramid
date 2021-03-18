@@ -1,5 +1,6 @@
 import React from 'react';
 import PuzzleBuilder from './puzzle-builder.jsx';
+import PuzzleGame from './puzzle-game.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -7,18 +8,20 @@ class App extends React.Component {
     this.state = {
       entry: true,
       createAPuzzle: false,
-      getAPuzzle: false,
+      playGame: false,
+      pyramid: null
     };
-    this.getAPuzzle = this.getAPuzzle.bind(this);
     this.createAPuzzle = this.createAPuzzle.bind(this);
+    this.playGame = this.playGame.bind(this);
   }
 
   createAPuzzle() {
     this.setState({entry: false, createAPuzzle: true});
   }
 
-  getAPuzzle() {
-    this.setState({entry: false, getAPuzzle: true});
+
+  playGame(pyramid) {
+    this.setState({createAPuzzle: false, playGame: true, pyramid: pyramid});
   }
 
   render() {
@@ -42,10 +45,22 @@ class App extends React.Component {
           <h2>Puzzle Builder</h2>
         </div>
         <div>
-          <PuzzleBuilder />
+          <PuzzleBuilder playGame={this.playGame}/>
         </div>
       </div>
       )
+    }
+    if (this.state.playGame) {
+      return (
+        <div>
+          <div>
+            <h2>Puzzle Builder</h2>
+          </div>
+          <div>
+            <PuzzleGame pyramid={this.state.pyramid}/>
+          </div>
+        </div>
+      );
     }
   }
 }

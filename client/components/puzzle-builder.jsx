@@ -35,6 +35,9 @@ class PuzzleBuilder extends React.Component {
   }
 
   submitPuzzle() {
+    if (confirm('Are You Sure About Your Puzzle?')) {
+      this.props.playGame(this.state.levels);
+    }
   }
 
   onChange(index, row) {
