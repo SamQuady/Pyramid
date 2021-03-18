@@ -1,5 +1,6 @@
 import React from 'react';
 import PuzzleRow from './puzzle-row.jsx';
+import Helpers from './helpers/tree-helpers.js';
 
 class PuzzleGame extends React.Component {
   constructor(props) {
