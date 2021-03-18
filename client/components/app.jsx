@@ -9,7 +9,8 @@ class App extends React.Component {
       entry: true,
       createAPuzzle: false,
       playGame: false,
-      pyramid: null
+      pyramid: null,
+      goal: null
     };
     this.createAPuzzle = this.createAPuzzle.bind(this);
     this.playGame = this.playGame.bind(this);
@@ -20,8 +21,8 @@ class App extends React.Component {
   }
 
 
-  playGame(pyramid) {
-    this.setState({createAPuzzle: false, playGame: true, pyramid: pyramid});
+  playGame(pyramid, goal) {
+    this.setState({createAPuzzle: false, playGame: true, pyramid: pyramid, goal: goal});
   }
 
   render() {
@@ -57,7 +58,7 @@ class App extends React.Component {
             <h2>Puzzle Builder</h2>
           </div>
           <div>
-            <PuzzleGame pyramid={this.state.pyramid}/>
+            <PuzzleGame goal={this.state.goal} pyramid={this.state.pyramid}/>
           </div>
         </div>
       );

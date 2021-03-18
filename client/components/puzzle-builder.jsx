@@ -7,12 +7,14 @@ class PuzzleBuilder extends React.Component {
     super();
     this.state = {
       levels: [[0], [0, 0], [0, 0, 0]],
-      levelsInt: 3
+      levelsInt: 3,
+      goal: 0
     };
     this.addARow = this.addARow.bind(this);
     this.subtractARow = this.subtractARow.bind(this);
     this.submitPuzzle = this.submitPuzzle.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.goalChange = this.goalChange.bind(this);
   }
 
   subtractARow() {
@@ -37,7 +39,7 @@ class PuzzleBuilder extends React.Component {
 
   submitPuzzle() {
     if (confirm('Are You Sure About Your Puzzle?')) {
-      this.props.playGame(this.state.levels);
+      this.props.playGame(this.state.levels, this.state.goal);
     }
   }
 
@@ -47,12 +49,16 @@ class PuzzleBuilder extends React.Component {
     this.setState({levels: puzzle});
   }
 
+  goalChange() {
+    this.setState({goal: Number(event.target.value)});
+  }
+
   render() {
     return (
       <div>
         <div>{this.state.levels.map((level, index) => <PuzzleRow onChange={this.onChange} index={index} key={index} build={true} spaces={level} />)}</div>
         <div>Goal</div>
-        <input type="number"></input>
+        <input type="number" onChange={this.goalChange}></input>
         <div>
           <button onClick={this.addARow}>Add a Row!</button><button onClick={this.subtractARow}>Subtract a Row!</button><button onClick={this.submitPuzzle}>Submit!</button>
         </div>

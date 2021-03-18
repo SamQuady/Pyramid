@@ -21,6 +21,9 @@ class PuzzleGame extends React.Component {
       <div>
         <div>{this.state.pyramid.map((row, index) => <PuzzleRow index={index} key={index} build={false} spaces={row} />)}</div>
         <div>
+          Goal: {this.props.goal}
+        </div>
+        <div>
           <button onClick={this.showAnswer}>Show me the Answer!</button>
         </div>
       </div>
