@@ -50,13 +50,7 @@ let nodeOrganizer = (nodeArray) => {
 }
 
 
-let treeBuilder = (input) => {
-
-  if (!pyramidValidator(input.length)) {
-    return 'Need More Nodes for the Pyramid!';
-  }
-
-  let nodes = nodeOrganizer(input);
+let treeBuilder = (nodes) => {
 
   let root = nodes[0][0];
 

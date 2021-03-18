@@ -24,7 +24,6 @@ class PuzzleBuilder extends React.Component {
     }
     let newLevels = this.state.levels;
     newLevels.pop();
-    console.log(newLevels, newLevelsInt);
     this.setState({levels: newLevels, levelsInt: newLevelsInt});
   }
 
@@ -33,12 +32,18 @@ class PuzzleBuilder extends React.Component {
     let newRow = new Array(newLevelsInt).fill(0);
     let newLevels = this.state.levels;
     newLevels.push(newRow);
-    console.log(newLevels, newLevelsInt);
     this.setState({levels: newLevels, levelsInt: newLevelsInt});
   }
 
   submitPuzzle() {
-    if (confirm('Are You Sure About Your Puzzle?')) {
+    let nodeArray = this.state.levels.flat();
+    let nodes = Helpers.nodeOrganizer(nodeArray);
+    let tree = Helpers.treeBuilder(nodes);
+    if (this.state.goal === 0) {
+      alert('You Haven\'t Set a Goal Yet!');
+    } else if (!Helpers.pathFinder(tree, this.state.goal)) {
+      alert('Your Puzzle Doesn\'t Have a Solution');
+    } else if (confirm('Are You Sure About Your Puzzle?')) {
       this.props.playGame(this.state.levels, this.state.goal);
     }
   }
