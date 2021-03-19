@@ -31,8 +31,6 @@ class PuzzleGame extends React.Component {
     let clicks = this.state.clicks;
 
     if (!clickPyramid[row][position]) {
-      let mostRecentClick = clicks[clicks.length - 1];
-      console.log(mostRecentClick)
       if (row !== mostRecentClick[0] + 1 || (position !== mostRecentClick[1] && position !== mostRecentClick[1] + 1)) {
         event.preventDefault();
       } else {
@@ -42,8 +40,13 @@ class PuzzleGame extends React.Component {
         clicks.push(click);
       }
     } else {
-      clickPyramid[row][position] = 0;
-      runningTotal /= this.state.pyramid[row][position];
+      if (row !== mostRecentClick[0] || position !== mostRecentClick[1]) {
+        event.preventDefault();
+      } else {
+        clicks.pop();
+        clickPyramid[row][position] = 0;
+        runningTotal /= this.state.pyramid[row][position];
+      }
     }
     this.setState({clickPyramid: clickPyramid, runningTotal: runningTotal, clicks: clicks}, () => {
       console.log('clicks', this.state.clicks, 'this click', row, position)

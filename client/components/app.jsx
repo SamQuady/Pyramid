@@ -5,18 +5,38 @@ import Helpers from './helpers/tree-helpers.js';
 import styled from 'styled-components';
 
 const LandingPageButton = styled.button`
+line-height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 background-color: white;
-width: 100px;
-border-radius: 10%;
+border-radius: 2px;
 border-style: solid;
 border-color: rgb(184, 184, 184);
-border-width: 4px;
+border-width: 1px;
 color: rgb(41, 41, 41);
 cursor: pointer;
+font-family: "Roboto","Helvetica Neue","Helvetica","Arial",sans-serif;
+font-size: 14px;
+font-weight: 400;
+height: 34px;
+width: auto;
+&:hover {box-shadow: inset 0 0 3px #000000;}
+`;
+
+const LandingPageButtonHolder = styled.div`
+text-align: center;
+`;
+
+const Title = styled.h1`
+font-family: Copperplate, fantasy;
+font-size: 30px;
+text-align: center;
+`;
+
+const IntroText = styled.h3`
+font-family: Arial, Helvetica, sans-serif;
 font-size: 20px;
-&:hover {box-shadow: inset 0 0 10px #000000;}
+text-align: center;
 `;
 
 class App extends React.Component {
@@ -64,12 +84,12 @@ class App extends React.Component {
       return (
         <div>
           <div>
-            <h1>Welcome to the Pyramid Descent Puzzle Game!</h1>
-            <h3>Wanna Play?</h3>
+            <Title>Welcome to the Pyramid Descent Puzzle Game!</Title>
+            <IntroText>Wanna Play?</IntroText>
           </div>
-          <div>
+          <LandingPageButtonHolder>
             <LandingPageButton onClick={this.createAPuzzle}>Build Your Own Puzzle!</LandingPageButton><LandingPageButton onClick={this.getAPuzzle}>Let Us Choose One For You!</LandingPageButton>
-          </div>
+          </LandingPageButtonHolder>
         </div>
         );
     };
@@ -77,7 +97,7 @@ class App extends React.Component {
       return (
       <div>
         <div>
-          <h2>Puzzle Builder</h2>
+          <IntroText>Puzzle Builder</IntroText>
         </div>
         <div>
           <PuzzleBuilder playGame={this.playGame}/>
@@ -89,7 +109,7 @@ class App extends React.Component {
       return (
         <div>
           <div>
-            <h2>Puzzle Builder</h2>
+            <IntroText>Puzzle Builder</IntroText>
           </div>
           <div>
             <PuzzleGame goal={this.state.goal} pyramid={this.state.pyramid}/>
