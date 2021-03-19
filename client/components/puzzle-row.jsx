@@ -22,13 +22,14 @@ class PuzzleRow extends React.Component {
   }
 
   render() {
+    console.log(this.props.index);
     if (this.props.build) {
       return (
-        <div>{this.props.spaces.map((space, index) => <PuzzleInputNode onChange={this.handleChange} index={index} key={index}/>)}</div>
+        <div>{this.props.spaces.map((space, index) => <PuzzleInputNode row={this.props.index} onChange={this.handleChange} index={index} key={index}/>)}</div>
       )
     } else {
       return (
-        <div>{this.props.spaces.map((space, index) => <PuzzleRegularNode onClick={this.handleClick} value={space} index={index} key={index}/>)}</div>
+        <div>{this.props.spaces.map((space, index) => <PuzzleRegularNode row={this.props.index} onClick={this.handleClick} value={space} index={index} key={index}/>)}</div>
       )
     }
   }

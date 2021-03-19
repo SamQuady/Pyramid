@@ -52,6 +52,7 @@ class PuzzleGame extends React.Component {
   }
   //need to feed column numer and index number to click handler
   render() {
+    console.log(this.props.pyramid[0][0])
     return (
       <div>
         <div>{this.state.pyramid.map((row, index) => <PuzzleRow onClick={this.nodeClick} index={index} key={index} build={false} spaces={row} />)}</div>

@@ -2,6 +2,22 @@ import React from 'react';
 import PuzzleBuilder from './puzzle-builder.jsx';
 import PuzzleGame from './puzzle-game.jsx';
 import Helpers from './helpers/tree-helpers.js';
+import styled from 'styled-components';
+
+const LandingPageButton = styled.button`
+margin-left: 20px;
+margin-right: 20px;
+background-color: white;
+width: 100px;
+border-radius: 10%;
+border-style: solid;
+border-color: rgb(184, 184, 184);
+border-width: 4px;
+color: rgb(41, 41, 41);
+cursor: pointer;
+font-size: 20px;
+&:hover {box-shadow: inset 0 0 10px #000000;}
+`;
 
 class App extends React.Component {
   constructor() {
@@ -52,7 +68,7 @@ class App extends React.Component {
             <h3>Wanna Play?</h3>
           </div>
           <div>
-            <button onClick={this.createAPuzzle}>Build Your Own Puzzle!</button><button onClick={this.getAPuzzle}>Let Us Choose One For You!</button>
+            <LandingPageButton onClick={this.createAPuzzle}>Build Your Own Puzzle!</LandingPageButton><LandingPageButton onClick={this.getAPuzzle}>Let Us Choose One For You!</LandingPageButton>
           </div>
         </div>
         );

@@ -36,6 +36,11 @@ class PuzzleRegularNode extends React.Component {
   }
 
   render() {
+    if (this.props.row === 0 && this.props.index === 0) {
+      return (
+        <ClickedNode onClick={event.preventDefault()}>{this.props.value}</ClickedNode>
+      );
+    }
     if (!this.state.clicked) {
       return (
         <Node onClick={(event)=> {
