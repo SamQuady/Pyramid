@@ -7,6 +7,7 @@ class PuzzleRow extends React.Component {
     super(props);
     this.state = {row: this.props.spaces};
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(index) {
@@ -16,6 +17,10 @@ class PuzzleRow extends React.Component {
     this.props.onChange(this.props.index, this.state.row);
   }
 
+  handleClick(column) {
+    this.props.onClick(this.props.index, column);
+  }
+
   render() {
     if (this.props.build) {
       return (
@@ -23,7 +28,7 @@ class PuzzleRow extends React.Component {
       )
     } else {
       return (
-        <div>{this.props.spaces.map((space, index) => <PuzzleRegularNode value={space} index={index} key={index}/>)}</div>
+        <div>{this.props.spaces.map((space, index) => <PuzzleRegularNode onClick={this.handleClick} value={space} index={index} key={index}/>)}</div>
       )
     }
   }

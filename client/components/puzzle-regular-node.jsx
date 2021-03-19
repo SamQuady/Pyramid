@@ -8,7 +8,7 @@ class PuzzleRegularNode extends React.Component {
 
   render() {
     return (
-      <span>{this.props.value}</span>
+      <span onClick={(event)=> {this.props.onClick(this.props.index)}}>{this.props.value}</span>
     );
   }
 }
