@@ -63,10 +63,10 @@ class PuzzleGame extends React.Component {
   }
 
   nodeClick(row, position) {
-    //still need to add some logic checking if the click is valid, ie down a row and either left or right
     let clickPyramid = this.state.clickPyramid;
     let runningTotal = this.state.runningTotal;
     let clicks = this.state.clicks;
+    let mostRecentClick = clicks[clicks.length - 1];
 
     if (!clickPyramid[row][position]) {
       if (row !== mostRecentClick[0] + 1 || (position !== mostRecentClick[1] && position !== mostRecentClick[1] + 1)) {
@@ -106,9 +106,11 @@ class PuzzleGame extends React.Component {
   }
   //need to feed column numer and index number to click handler
   render() {
+    let mostRecentClick = this.state.clicks[this.state.clicks.length - 1];
+    let validClicks = [mostRecentClick, [mostRecentClick[0] + 1, mostRecentClick[1]], [mostRecentClick[0] + 1, mostRecentClick[1] + 1]];
     return (
       <div>
-        <div>{this.state.pyramid.map((row, index) => <PuzzleRow onClick={this.nodeClick} index={index} key={index} build={false} spaces={row} />)}</div>
+        <div>{this.state.pyramid.map((row, index) => <PuzzleRow validClicks={validClicks} onClick={this.nodeClick} index={index} key={index} build={false} spaces={row} />)}</div>
         <GameTextFieldHolder>
           <GameTextFields>
             Moves: {this.state.moves}

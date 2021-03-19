@@ -40,19 +40,36 @@ class PuzzleRegularNode extends React.Component {
       return (
         <ClickedNode onClick={event.preventDefault()}>{this.props.value}</ClickedNode>
       );
-    }
-    if (!this.state.clicked) {
-      return (
-        <Node onClick={(event)=> {
-          this.setState({clicked: !this.state.clicked});
-        this.props.onClick(this.props.index)}}>{this.props.value}</Node>
-      );
     } else {
-      return (
-        <ClickedNode onClick={(event)=> {
-          this.setState({clicked: !this.state.clicked});
-        this.props.onClick(this.props.index)}}>{this.props.value}</ClickedNode>
-      );
+      if (!this.state.clicked) {
+        return (
+          <Node onClick={(event)=> {
+            let valid = false;
+            for (let i = 0; i < this.props.validClicks.length; i ++) {
+              if (this.props.validClicks[i][0] === this.props.row && this.props.validClicks[i][1] === this.props.index) {
+                valid = true;
+              }
+            }
+            if (valid) {
+              this.setState({clicked: !this.state.clicked});
+              this.props.onClick(this.props.index)}
+            }}>{this.props.value}</Node>
+        );
+      } else {
+        return (
+          <ClickedNode onClick={(event)=> {
+            let valid = false;
+            for (let i = 0; i < this.props.validClicks.length; i ++) {
+              if (this.props.validClicks[i][0] === this.props.row && this.props.validClicks[i][1] === this.props.index) {
+                valid = true;
+              }
+            }
+            if (valid) {
+              this.setState({clicked: !this.state.clicked});
+              this.props.onClick(this.props.index)}
+            }}>{this.props.value}</ClickedNode>
+        );
+    }
     }
   }
 }
