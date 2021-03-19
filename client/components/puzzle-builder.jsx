@@ -4,9 +4,19 @@ import Helpers from './helpers/tree-helpers.js';
 import styled from 'styled-components';
 
 const IntroText = styled.div`
+padding-top: 30px;
 font-family: Arial, Helvetica, sans-serif;
 font-size: 20px;
 text-align: center;
+`;
+
+const GoalInputHolder = styled.div`
+text-align: center;
+`;
+
+const ButtonHolder = styled.div`
+text-align: center;
+padding-top: 30px;
 `;
 
 const BuildGameButtons = styled.button`
@@ -26,6 +36,21 @@ font-weight: 400;
 height: 34px;
 width: auto;
 &:hover {box-shadow: inset 0 0 3px #000000;}
+`;
+
+const GoalInput = styled.input`
+text-align: center;
+background-color: white;
+width: 60px;
+height: 60px;
+border-radius: 100%;
+border-style: solid;
+border-color: rgb(184, 184, 184);
+border-width: 4px;
+color: rgb(41, 41, 41);
+cursor: pointer;
+font-size: 20px;
+&:hover {box-shadow: inset 0 0 10px #000000;}
 `;
 
 class PuzzleBuilder extends React.Component {
@@ -88,10 +113,10 @@ class PuzzleBuilder extends React.Component {
       <div>
         <div>{this.state.levels.map((level, index) => <PuzzleRow onChange={this.onChange} index={index} key={index} build={true} spaces={level} />)}</div>
         <IntroText>Goal</IntroText>
-        <input type="number" onChange={this.goalChange}></input>
-        <div>
+        <GoalInputHolder><GoalInput type="number" onChange={this.goalChange}></GoalInput></GoalInputHolder>
+        <ButtonHolder>
           <BuildGameButtons onClick={this.addARow}>Add a Row!</BuildGameButtons><BuildGameButtons onClick={this.subtractARow}>Subtract a Row!</BuildGameButtons><BuildGameButtons onClick={this.submitPuzzle}>Submit!</BuildGameButtons>
-        </div>
+        </ButtonHolder>
       </div>
       )
   }
