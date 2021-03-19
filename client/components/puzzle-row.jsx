@@ -1,6 +1,11 @@
 import React from 'react';
 import PuzzleInputNode from './puzzle-input-node.jsx';
 import PuzzleRegularNode from './puzzle-regular-node.jsx';
+import styled from 'styled-components';
+
+const PuzzleRowHolder = styled.div`
+text-align: center;
+`;
 
 class PuzzleRow extends React.Component {
   constructor(props) {
@@ -24,11 +29,11 @@ class PuzzleRow extends React.Component {
   render() {
     if (this.props.build) {
       return (
-        <div>{this.props.spaces.map((space, index) => <PuzzleInputNode row={this.props.index} onChange={this.handleChange} index={index} key={index}/>)}</div>
+        <PuzzleRowHolder>{this.props.spaces.map((space, index) => <PuzzleInputNode row={this.props.index} onChange={this.handleChange} index={index} key={index}/>)}</PuzzleRowHolder>
       )
     } else {
       return (
-        <div>{this.props.spaces.map((space, index) => <PuzzleRegularNode row={this.props.index} onClick={this.handleClick} value={space} index={index} key={index}/>)}</div>
+        <PuzzleRowHolder>{this.props.spaces.map((space, index) => <PuzzleRegularNode row={this.props.index} onClick={this.handleClick} value={space} index={index} key={index}/>)}</PuzzleRowHolder>
       )
     }
   }
