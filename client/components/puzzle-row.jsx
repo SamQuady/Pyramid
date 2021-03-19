@@ -22,7 +22,6 @@ class PuzzleRow extends React.Component {
   }
 
   render() {
-    console.log(this.props.index);
     if (this.props.build) {
       return (
         <div>{this.props.spaces.map((space, index) => <PuzzleInputNode row={this.props.index} onChange={this.handleChange} index={index} key={index}/>)}</div>

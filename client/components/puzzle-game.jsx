@@ -11,6 +11,7 @@ class PuzzleGame extends React.Component {
       moves: '',
       clickPyramid: null,
       tree: Helpers.treeBuilder(this.props.pyramid.flat()),
+      clicks: [[0,0]]
     };
     this.showAnswer = this.showAnswer.bind(this);
     this.nodeClick = this.nodeClick.bind(this);
@@ -27,14 +28,26 @@ class PuzzleGame extends React.Component {
     //still need to add some logic checking if the click is valid, ie down a row and either left or right
     let clickPyramid = this.state.clickPyramid;
     let runningTotal = this.state.runningTotal;
+    let clicks = this.state.clicks;
+
     if (!clickPyramid[row][position]) {
-      clickPyramid[row][position] = 1;
-      runningTotal *= this.state.pyramid[row][position];
+      let mostRecentClick = clicks[clicks.length - 1];
+      console.log(mostRecentClick)
+      if (row !== mostRecentClick[0] + 1 || (position !== mostRecentClick[1] && position !== mostRecentClick[1] + 1)) {
+        event.preventDefault();
+      } else {
+        clickPyramid[row][position] = 1;
+        runningTotal *= this.state.pyramid[row][position];
+        let click = [row, position];
+        clicks.push(click);
+      }
     } else {
       clickPyramid[row][position] = 0;
       runningTotal /= this.state.pyramid[row][position];
     }
-    this.setState({clickPyramid: clickPyramid, runningTotal: runningTotal});
+    this.setState({clickPyramid: clickPyramid, runningTotal: runningTotal, clicks: clicks}, () => {
+      console.log('clicks', this.state.clicks, 'this click', row, position)
+    });
   }
 
   clickPyramidBuilder() {
@@ -52,7 +65,6 @@ class PuzzleGame extends React.Component {
   }
   //need to feed column numer and index number to click handler
   render() {
-    console.log(this.props.pyramid[0][0])
     return (
       <div>
         <div>{this.state.pyramid.map((row, index) => <PuzzleRow onClick={this.nodeClick} index={index} key={index} build={false} spaces={row} />)}</div>
