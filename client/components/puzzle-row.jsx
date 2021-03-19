@@ -33,7 +33,7 @@ class PuzzleRow extends React.Component {
       )
     } else {
       return (
-        <PuzzleRowHolder>{this.props.spaces.map((space, index) => <PuzzleRegularNode validClicks={this.props.validClicks} row={this.props.index} onClick={this.handleClick} value={space} index={index} key={index}/>)}</PuzzleRowHolder>
+        <PuzzleRowHolder>{this.props.spaces.map((space, index) => <PuzzleRegularNode playable={this.props.playable}validClicks={this.props.validClicks} row={this.props.index} onClick={this.handleClick} value={space} index={index} key={index}/>)}</PuzzleRowHolder>
       )
     }
   }

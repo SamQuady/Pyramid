@@ -32,7 +32,7 @@ font-size: 20px;
 class PuzzleRegularNode extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {clicked: false};
+    this.state = {clicked: false, playable: this.props.playable};
   }
 
   render() {
@@ -50,7 +50,7 @@ class PuzzleRegularNode extends React.Component {
                 valid = true;
               }
             }
-            if (valid) {
+            if (valid && this.state.playable) {
               this.setState({clicked: !this.state.clicked});
               this.props.onClick(this.props.index)}
             }}>{this.props.value}</Node>
@@ -64,7 +64,7 @@ class PuzzleRegularNode extends React.Component {
                 valid = true;
               }
             }
-            if (valid) {
+            if (valid && this.state.playable) {
               this.setState({clicked: !this.state.clicked});
               this.props.onClick(this.props.index)}
             }}>{this.props.value}</ClickedNode>

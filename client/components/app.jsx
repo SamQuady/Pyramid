@@ -24,6 +24,7 @@ width: auto;
 `;
 
 const LandingPageButtonHolder = styled.div`
+padding-top: 40px;
 text-align: center;
 `;
 
@@ -56,6 +57,7 @@ class App extends React.Component {
     this.playGame = this.playGame.bind(this);
     this.getAPuzzle = this.getAPuzzle.bind(this);
     this.randomNumberGenerator = this.randomNumberGenerator.bind(this);
+    this.playAgainClickHandler = this.playAgainClickHandler.bind(this);
   }
 
   createAPuzzle() {
@@ -77,6 +79,10 @@ class App extends React.Component {
     let gameIndex = this.randomNumberGenerator(0, this.state.defaultPuzzles.length);
     let game = this.state.defaultPuzzles[gameIndex];
     this.setState({entry: false, playGame: true, pyramid: game.nodes, goal: game.goal});
+  }
+
+  playAgainClickHandler() {
+    this.setState({entry: true, createAPuzzle: false, playGame: false, pyramid: null, goal: null})
   }
 
   render() {
@@ -114,6 +120,9 @@ class App extends React.Component {
           <div>
             <PuzzleGame goal={this.state.goal} pyramid={this.state.pyramid}/>
           </div>
+          <LandingPageButtonHolder>
+            <LandingPageButton onClick={this.playAgainClickHandler}>Play Again?</LandingPageButton>
+          </LandingPageButtonHolder>
         </div>
       );
     }

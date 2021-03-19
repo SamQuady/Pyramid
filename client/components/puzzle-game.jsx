@@ -49,7 +49,8 @@ class PuzzleGame extends React.Component {
       moves: '',
       clickPyramid: null,
       tree: Helpers.treeBuilder(this.props.pyramid.flat()),
-      clicks: [[0,0]]
+      clicks: [[0,0]],
+      playable: true
     };
     this.showAnswer = this.showAnswer.bind(this);
     this.nodeClick = this.nodeClick.bind(this);
@@ -59,36 +60,49 @@ class PuzzleGame extends React.Component {
 
   showAnswer() {
     let result = Helpers.pathFinder(this.state.tree, this.props.goal);
-    this.setState({moves: result, runningTotal: this.props.goal});
+    if (result === this.state.moves) {alert('You Nailed It!')} else {
+      alert('Better Luck Next Time!')
+    }
+    this.setState({playable: false, moves: result, runningTotal: this.props.goal});
   }
 
   nodeClick(row, position) {
-    let clickPyramid = this.state.clickPyramid;
-    let runningTotal = this.state.runningTotal;
-    let clicks = this.state.clicks;
-    let mostRecentClick = clicks[clicks.length - 1];
+    if (this.state.playable) {
+      let clickPyramid = this.state.clickPyramid;
+      let runningTotal = this.state.runningTotal;
+      let clicks = this.state.clicks;
+      let mostRecentClick = clicks[clicks.length - 1];
+      let moves = this.state.moves;
+      let move = '';
 
-    if (!clickPyramid[row][position]) {
-      if (row !== mostRecentClick[0] + 1 || (position !== mostRecentClick[1] && position !== mostRecentClick[1] + 1)) {
-        event.preventDefault();
+
+      if (!clickPyramid[row][position]) {
+        if (row !== mostRecentClick[0] + 1 || (position !== mostRecentClick[1] && position !== mostRecentClick[1] + 1)) {
+          event.preventDefault();
+        } else {
+          if (position === mostRecentClick[1] + 1) {
+            move = 'R';
+          } else {
+            move = 'L';
+          }
+          moves += move;
+          clickPyramid[row][position] = 1;
+          runningTotal *= this.state.pyramid[row][position];
+          let click = [row, position];
+          clicks.push(click);
+        }
       } else {
-        clickPyramid[row][position] = 1;
-        runningTotal *= this.state.pyramid[row][position];
-        let click = [row, position];
-        clicks.push(click);
+        if (row !== mostRecentClick[0] || position !== mostRecentClick[1]) {
+          event.preventDefault();
+        } else {
+          moves = moves.slice(0, moves.length - 1);
+          clicks.pop();
+          clickPyramid[row][position] = 0;
+          runningTotal /= this.state.pyramid[row][position];
+        }
       }
-    } else {
-      if (row !== mostRecentClick[0] || position !== mostRecentClick[1]) {
-        event.preventDefault();
-      } else {
-        clicks.pop();
-        clickPyramid[row][position] = 0;
-        runningTotal /= this.state.pyramid[row][position];
-      }
+      this.setState({clickPyramid: clickPyramid, runningTotal: runningTotal, clicks: clicks, moves: moves});
     }
-    this.setState({clickPyramid: clickPyramid, runningTotal: runningTotal, clicks: clicks}, () => {
-      console.log('clicks', this.state.clicks, 'this click', row, position)
-    });
   }
 
   clickPyramidBuilder() {
@@ -110,7 +124,7 @@ class PuzzleGame extends React.Component {
     let validClicks = [mostRecentClick, [mostRecentClick[0] + 1, mostRecentClick[1]], [mostRecentClick[0] + 1, mostRecentClick[1] + 1]];
     return (
       <div>
-        <div>{this.state.pyramid.map((row, index) => <PuzzleRow validClicks={validClicks} onClick={this.nodeClick} index={index} key={index} build={false} spaces={row} />)}</div>
+        <div>{this.state.pyramid.map((row, index) => <PuzzleRow playable={this.state.playable} validClicks={validClicks} onClick={this.nodeClick} index={index} key={index} build={false} spaces={row} />)}</div>
         <GameTextFieldHolder>
           <GameTextFields>
             Moves: {this.state.moves}
